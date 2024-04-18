@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Get new name from command in nicer param name
+newBranchName=$1
+
+# Get current branch
+currentBranch=$(git symbolic-ref --short -q HEAD)
+
+# Rename current branch to new name locally
+git branch -m $currentBranch $newBranchName
+
+# Delete old branch upstream 
+git push origin :$currentBranch
+git branch --unset-upstream $currentBranch
+
+# Push new branch upstream 
+git push origin $newBranchName
+
+# Reset upstream for the new local branch
+git push origin -u $newBranchName

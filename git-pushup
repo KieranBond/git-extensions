@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Get current branch
+currentBranch=$(git symbolic-ref --short -q HEAD)
+
+git push --set-upstream origin $currentBranch

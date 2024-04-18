@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Get new name from command in nicer param name
+branchToDelete=$1
+
+# Get current branch
+currentBranch=$(git symbolic-ref --short -q HEAD)
+
+if [ branchToDelete == currentBranch ]
+	then
+		git checkout master
+fi
+
+# Delete branch locally
+git branch -D $branchToDelete
+
+# Delete branch upstream
+git push origin --delete $branchToDelete
